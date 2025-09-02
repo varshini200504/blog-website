@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blog app</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <%- include("partials/header.ejs") %>
+  <h2>All posts</h2>
+  <% if(posts.length === 0) { %>
+    <p>No posts yet. <a href="/new">Create one</a></p>
+    <% } else { %>
+    <% posts.forEach(post => { %>
+     <div class="post-card">
+        <h3> <%= post.title %> </h3>
+        <p> <%= post.content.substring(0, 150) %>... </p>
+        <small> <%= post.date %></small>
+        <form action="/posts/<%= post.id %>?_method=Delete" method="post" style="display: inline;" class="edit-form">
+
+          <button type="submit" class="btn btn-delete">Delete</button>
+          
+        </form>
+        <a href="/edit/<%= post.id %>" ><button class="btn btn-edit">Edit</button></a>
+        <a href="/view/<%= post.id %>"><button class="btn">View
+
+        </button></a>
+
+      </div> 
+      
+    <% }); %>
+  <% } %>
+  <%- include("partials/footer.ejs") %>
+</body>
+</html>
